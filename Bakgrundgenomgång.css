@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    background-color: red;
+    max-width: 70%;
+    margin: auto;
+    height: 50vh;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMcpf5eVq8lAD8DlPRMNlyyLSCK5klMkmw_A&s);
+    background-size: cover;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+nav {
+    background-color: #232323ad;
+    height: 80px;
+    border-radius: 25px;
+    backdrop-filter: blur(8px);
+}
+
+h1 {
+    color: #fff;
+    font-family: sans-serif;
+    margin: 10% 0 0 50px;
+    font-size: 48px;
+}
