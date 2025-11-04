@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Playfair Display", serif;
+    color: white;
+}
+
+img{
+    max-width: 100%;
+}
+
+nav {
+    background-color: #000125;
+    display: flex;
+    width: 100vw;
+    height: 50px;
+    justify-content:space-between;
+}
+
+h1 {
+    margin-left: 200px;
+}
+
+li {
+    margin-right: 30px;
+    
+}
+
+ul {
+    display: flex;
+    margin-top: 10px;
+    list-style: none;
+}
+
+.hero {
+    background-color: #020F66   ;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.hero-image {
+    width: 3000px;
+    margin-right: 50px;
+}
+.porshe-text h2{
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.porshe-text {
+    background-color: #000125;
+    margin-right: 50px;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.info {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #020F66;
+}
+
+.info-text {
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #000125;
+}
+
+.info-image{
+    width: 1300px;
+}
+
+.info text h2{
+    margin-bottom: 50px;
+    text-align: center;
+}

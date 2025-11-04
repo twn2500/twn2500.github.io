@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins' sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('Bilder/Filip.jpg');
+    background-size: cover;
+}
