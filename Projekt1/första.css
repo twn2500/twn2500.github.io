@@ -56,25 +56,3 @@ ul {
     padding: 10px;
 }
 
-.info {
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #020F66;
-}
-
-.info-text {
-    border-radius: 15px;
-    padding: 10px;
-    background-color: #000125;
-}
-
-.info-image{
-    width: 1300px;
-}
-
-.info text h2{
-    margin-bottom: 50px;
-    text-align: center;
-}
