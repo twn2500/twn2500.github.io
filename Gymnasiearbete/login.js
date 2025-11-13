@@ -5,7 +5,6 @@ const supabaseUrl = 'https://ravafoaxjvtxhyduaibu.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhdmFmb2F4anZ0eGh5ZHVhaWJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwNDE1MzAsImV4cCI6MjA3ODYxNzUzMH0.WS001Y0lMo8gJDt1GCMpiBrBENGiiKEahaXmi4VHuxk' // Byt ut mot din anon key
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-// Registrera användare
 async function registerUser(username, email, password) {
     console.log('--- Registreringsförsök ---')
     console.log('Username:', username, 'Email:', email)
@@ -24,15 +23,26 @@ async function registerUser(username, email, password) {
         return
     }
 
-    const user = signUpData.user
-    if (!user) {
-        alert('SignUp misslyckades: user är null')
+    // 2️⃣ Logga in direkt efter signUp
+    const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
+        email,
+        password
+    })
+    if (loginError) {
+        console.error('Login efter signUp misslyckades:', loginError)
+        alert('Login efter registrering misslyckades: ' + loginError.message)
         return
     }
 
-    console.log('Auth user skapad med ID:', user.id)
+    const user = loginData.user
+    if (!user) {
+        alert('Login efter registrering misslyckades: user är null')
+        return
+    }
 
-    // 2️⃣ Lägg till användaren i users-tabellen
+    console.log('Inloggad user ID:', user.id)
+
+    // 3️⃣ Lägg till användaren i users-tabellen
     const { data: userData, error: insertError } = await supabase
         .from('users')
         .insert([{ id: user.id, username, email }])
@@ -42,7 +52,7 @@ async function registerUser(username, email, password) {
     if (insertError) {
         alert('Misslyckades att spara i users-tabellen: ' + insertError.message)
     } else {
-        alert('Registrerad! Kolla din e-post för verifiering.')
+        alert('Registrerad och sparad i databasen! Du är nu inloggad.')
     }
 }
 
