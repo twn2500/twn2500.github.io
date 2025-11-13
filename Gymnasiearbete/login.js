@@ -25,6 +25,10 @@ async function registerUser(username, email, password) {
     }
 
     alert('Registrering lyckades! Kontrollera din e-post för verifiering. Därefter kan du logga in.')
+
+    document.getElementById('regUsername').value = ''
+    document.getElementById('regEmail').value = ''
+    document.getElementById('regPass').value = ''
 }
 
 // --- Logga in användare ---
@@ -73,7 +77,7 @@ async function loginUser(email, password) {
     }
 
     alert('Inloggad!')
-    window.location.href = 'loading.html' // Byt till din sida
+    window.location.href = 'sidan.html' // Byt till din sida
 }
 
 // --- Event listeners ---
