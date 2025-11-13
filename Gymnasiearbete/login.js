@@ -55,26 +55,29 @@ async function loginUser(email, password) {
     console.log('Inloggad user ID:', user.id)
 
     // --- Lägg till användaren i users-tabellen (om inte redan finns) ---
-    const { data: existingUser } = await supabase
+    const { data: existingUsers, error: selectError } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', user.id)
+
+if (selectError) {
+    console.error('Fel vid kontroll av existing user:', selectError)
+} else if (existingUsers.length === 0) {
+    // Insert eftersom användaren inte finns
+    const { data: userData, error: insertError } = await supabase
         .from('users')
-        .select('*')
-        .eq('id', user.id)
-        .single()
+        .insert([{ id: user.id, username: user.user_metadata.username, email: user.email }])
 
-    if (!existingUser) {
-        const { data: userData, error: insertError } = await supabase
-            .from('users')
-            .insert([{ id: user.id, username: user.user_metadata.username, email: user.email }])
-
-        if (insertError) {
-            console.error('Insert error:', insertError)
-            alert('Misslyckades att spara användare i databasen: ' + insertError.message)
-        } else {
-            console.log('User sparad i tabell:', userData)
-        }
+    if (insertError) {
+        console.error('Insert error:', insertError)
+        alert('Misslyckades att spara användare i databasen: ' + insertError.message)
     } else {
-        console.log('User finns redan i tabellen')
+        console.log('User sparad i tabell:', userData)
     }
+} else {
+    console.log('User finns redan i tabellen, inget insert görs')
+}
+
 
     alert('Inloggad!')
     window.location.href = 'sidan.html' // Byt till din sida
