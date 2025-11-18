@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Playfair Display", serif;
+    color: white;
+}
+
+nav {
+    background-color: #000125;
+    display: flex;
+    width: 100vw;
+    height: 50px;
+    justify-content:space-between;
+}
+img {
+    max-width: 100%;
+}
+
+h1 {
+    margin-left: 200px;
+}
+
+li {
+    margin-right: 30px;
+    
+}
+
+ul {
+    display: flex;
+    margin-top: 10px;
+    list-style: none;
+}
+
+.hero {
+    background-color: #020F66   ;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.gallery-section {
+    background-color: #020F66;
+    justify-items: center;
+    padding: 50px;
+}
