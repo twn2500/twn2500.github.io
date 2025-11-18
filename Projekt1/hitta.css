@@ -8,7 +8,6 @@
 nav {
     background-color: #000125;
     display: flex;
-    width: 100vw;
     height: 50px;
     justify-content:space-between;
 }
@@ -43,4 +42,13 @@ ul {
     background-color: #020F66;
     justify-items: center;
     padding: 50px;
+}
+
+footer {
+    margin: 0;
+    background-color: #000125;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 20px;
+    text-align: center;
 }
