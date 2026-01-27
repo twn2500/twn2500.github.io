@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    height: 100vh;
+    background-color: navy;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+h1{
+    font-size: 4rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.tidbox{
+    display: flex;
+    gap: 50px;
+}
+
+.tid{
+    text-align: center;
+}
+
+.tid h2{
+    font-size: 5rem;
+}
