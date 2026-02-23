@@ -1,24 +1,30 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-// Byt till anon key innan inlämning
+// =====================================================
+// KONFIGURATION
+// =====================================================
 const supabaseUrl = 'https://ravafoaxjvtxhyduaibu.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhdmFmb2F4anZ0eGh5ZHVhaWJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwNDE1MzAsImV4cCI6MjA3ODYxNzUzMH0.WS001Y0lMo8gJDt1GCMpiBrBENGiiKEahaXmi4VHuxk'
+const supabaseKey = 'DIN_ANON_KEY_HÄR'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-// ---------------------------------------------------------
-// Registrering
-// ---------------------------------------------------------
+// =====================================================
+// REGISTRERING
+// =====================================================
 async function registerUser(username, email, password) {
+
     if (!username || !email || !password) {
         alert('Alla fält måste fyllas i')
         return
     }
 
+    // 1. Skapa auth-användare
     const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { username } }
+        email: email,
+        password: password,
+        options: {
+            data: { username: username }
+        }
     })
 
     if (error) {
@@ -26,61 +32,60 @@ async function registerUser(username, email, password) {
         return
     }
 
-    alert('Registreringslänk skickad till din e-post.')
+    const user = data.user
 
-    // Rensa inputs
+    if (!user) {
+        alert('Kunde inte skapa användare.')
+        return
+    }
+
+    // 2. Skapa profilrad i users-tabellen
+    const { error: insertError } = await supabase
+        .from('users')
+        .insert([
+            {
+                id: user.id,
+                username: username,
+                email: email
+            }
+        ])
+
+    if (insertError) {
+        alert('Kunde inte spara användardata: ' + insertError.message)
+        return
+    }
+
+    alert('Registrering lyckades! Kontrollera din e-post.')
+
     document.getElementById('regUsername').value = ''
     document.getElementById('regEmail').value = ''
     document.getElementById('regPass').value = ''
 }
 
 
-
-// ---------------------------------------------------------
-// Inloggning
-// ---------------------------------------------------------
+// =====================================================
+// INLOGGNING
+// =====================================================
 async function loginUser(email, password) {
+
     if (!email || !password) {
         alert('Du måste fylla i dina uppgifter')
         return
     }
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+    })
 
     if (error) {
         alert('Fel uppgifter eller o-verifierad e-post')
         return
     }
 
-    const user = data.user
-    if (!user) {
-        alert('Inloggning misslyckades.')
+    if (!data.user) {
+        alert('Inloggning misslyckades')
         return
-    }
-
-    // Kontrollera att användaren finns i users-tabellen
-    const { data: existing, error: checkError } = await supabase
-        .from('users')
-        .select('id')
-        .eq('id', user.id)
-        .maybeSingle()
-
-    if (!existing) {
-        // Skapa ny rad om användaren inte finns
-        const { error: insertError } = await supabase
-            .from('users')
-            .insert([
-                {
-                    id: user.id,
-                    username: user.user_metadata.username,
-                    email: user.email
-                }
-            ])
-
-        if (insertError) {
-            alert('Kunde inte spara användaren: ' + insertError.message)
-            return
-        }
     }
 
     alert('Inloggad!')
@@ -88,32 +93,34 @@ async function loginUser(email, password) {
 }
 
 
-
-// ---------------------------------------------------------
-// Event Listeners
-// ---------------------------------------------------------
+// =====================================================
+// EVENT LISTENERS
+// =====================================================
 document.addEventListener('DOMContentLoaded', () => {
+
     const registerForm = document.getElementById('registerForm')
     const loginForm = document.getElementById('loginForm')
 
     if (registerForm) {
-        registerForm.addEventListener('submit', e => {
+        registerForm.addEventListener('submit', (e) => {
             e.preventDefault()
-            registerUser(
-                document.getElementById('regUsername').value,
-                document.getElementById('regEmail').value,
-                document.getElementById('regPass').value
-            )
+
+            const username = document.getElementById('regUsername').value
+            const email = document.getElementById('regEmail').value
+            const password = document.getElementById('regPass').value
+
+            registerUser(username, email, password)
         })
     }
 
     if (loginForm) {
-        loginForm.addEventListener('submit', e => {
+        loginForm.addEventListener('submit', (e) => {
             e.preventDefault()
-            loginUser(
-                document.getElementById('loginEmail').value,
-                document.getElementById('loginPass').value
-            )
+
+            const email = document.getElementById('loginEmail').value
+            const password = document.getElementById('loginPass').value
+
+            loginUser(email, password)
         })
     }
 })
