@@ -118,13 +118,17 @@ Teknisk approach: Central layout och använda gradiant
             </div>
         </div>
 
+        <!-- Jag ska göra en page där jag visar tre klass kompisar. De ska ha en kort beskrivning, tre ord som de visar utåt och sedan en like counter. De ska också visas en bild på personen -->
+
         <div class="portfolio-section">
             <h2 class="section-title">Vad jag har skapat</h2>
 
             <div class="card-grid">
                 <!-- Projekt 1 -->
                  <div class="projekt-card">
-                    <div class="card-image">🍆</div>
+                    <div class="card-image">
+                        <img src="Image (4).jpg" alt="">
+                    </div>
                     <div class="card-content">
                         <h3 class="card-title">LUCAS</h3>
                         <p class="card-description">Klassisk snopp ätare, som är inspererat av Lucas fantastiska färdigheter</p>
@@ -146,14 +150,16 @@ Teknisk approach: Central layout och använda gradiant
                  <!-- Slut projekt 1-->
                   <!-- Projekt 2 -->
                  <div class="projekt-card">
-                    <div class="card-image">🍆</div>
+                    <div class="card-image">
+                        <img src="Image (1).jpg" alt="">
+                    </div>
                     <div class="card-content">
-                        <h3 class="card-title">s</h3>
-                        <p class="card-description">Klassisk snopp ätare, som är inspererat av Lucas fantastiska färdigheter</p>
+                        <h3 class="card-title">FILIP</h3>
+                        <p class="card-description">En klassisk pojk från Staffanstorp som har visat att han är en lojal och duktig pojke</p>
                         <div class="card-tags">
-                            <span class="tag">Lucas</span>
-                            <span class="tag">Lyndxn</span>
-                            <span class="tag">Artist</span>
+                            <span class="tag">Skötsam</span>
+                            <span class="tag">Lydig</span>
+                            <span class="tag">Dräng</span>
                         </div>
                         <div class="like-section">
                             <button class="like-button" onClick="toggleLike(2)">
@@ -168,14 +174,16 @@ Teknisk approach: Central layout och använda gradiant
                  <!-- Slut projekt 2-->
                   <!-- Projekt 3 -->
                  <div class="projekt-card">
-                    <div class="card-image">🍆</div>
+                    <div class="card-image">
+                        <img src="Image (5).jpg" alt="">
+                    </div>
                     <div class="card-content">
-                        <h3 class="card-title">Penis Eater</h3>
-                        <p class="card-description">Klassisk snopp ätare, som är inspererat av Lucas fantastiska färdigheter</p>
+                        <h3 class="card-title">Elton</h3>
+                        <p class="card-description">En klassisk dräng från den lilla byn lomma, som ägs av Staffanstorp</p>
                         <div class="card-tags">
-                            <span class="tag">Lucas</span>
-                            <span class="tag">Lyndxn</span>
-                            <span class="tag">Artist</span>
+                            <span class="tag">Otroligt duktig</span>
+                            <span class="tag">Lydig</span>
+                            <span class="tag">Hund</span>
                         </div>
                         <div class="like-section">
                             <button class="like-button" onClick="toggleLike(3)">
@@ -195,5 +203,22 @@ Teknisk approach: Central layout och använda gradiant
     </main>
 
 
+    <script>
+        function toggleLike(projectId) {
+            const button = document.querySelector(`#heart-${projectId}`).parentNode
+            const heart = document.querySelector(`#heart-${projectId}`)
+
+            if (button.classList.contains('liked')) {
+                button.classList.remove('liked')
+                heart.textContent = "🤍"
+                console.log ("unlike")
+            } else {
+                button.classList.add ('liked')
+                heart.textContent = "❤️"
+                console.log("like")
+            }
+        }
+    </script>
+    
 </body>
 </html>
