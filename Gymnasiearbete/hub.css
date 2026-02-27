@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.titel {
+    text-align: center;
+    color: navy;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.kort-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 20px;
+}
+
+.projekt-kort1 {
+    max-width: 400px;
+    flex: 1 1 400px;
+    background: white;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.projekt-kort2 {
+    max-width: 400px;
+    flex: 1 1 400px;
+    background: white;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.projekt-kort1:hover, .projekt-kort2:hover {
+    transform: translateY( -5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.kort-bild {
+    width: 100%;
+    height: 300px;
+    background-image: linear-gradient(135deg, #9b59b6, #8e44ad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.kort-bild img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.kort-innehåll {
+    padding: 1.5rem;
+}
+
+.kort-titel {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+}
+
+.kort.titel a {
+    color: navy;
+    text-decoration: none;
+}
+
+.kort-titel a:visited {
+    color: navy;
+}
+
+.kort-titel a:hover {
+    color: green;
+}
+
+.kort-titel a, .kort-titel a:hover, .kort-titel a:visited {
+    text-decoration: none !important;
+    color: navy;
+}
+
+.kort-titel p {
+    text-decoration: none;
+    margin: 0;
+}
+
+.projekt-kort1:hover .kort-bild img, .projekt-kort2:hover .kort-bild img {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .kort-grid {
+        grid-template-columns: 1fr;
+    }
+    
+}

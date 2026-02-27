@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Pro Platformer Engine</title>
+    <style>
+        body { margin: 0; background: #000; color: #fff; font-family: 'Arial Black', sans-serif; overflow: hidden; }
+        canvas { display: block; }
+        #ui { 
+            position: absolute; width: 100%; top: 0; padding: 20px;
+            display: flex; justify-content: space-between; box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            pointer-events: none;
+        }
+        .stat-box { border: 2px solid #fff; padding: 10px 20px; border-radius: 8px; background: rgba(0,0,0,0.5); }
+        .label { font-size: 12px; color: #aaa; text-transform: uppercase; }
+        .value { font-size: 24px; color: #ffd700; }
+    </style>
+</head>
+<body>
+
+    <div id="ui">
+        <div class="stat-box">
+            <div class="label">Bana</div>
+            <div id="lvlNum" class="value">1</div>
+        </div>
+        <div class="stat-box">
+            <div class="label">Guld (Bank)</div>
+            <div id="goldCount" class="value">0</div>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+<script>
+/** @type {HTMLCanvasElement} */
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+// --- GLOBAL STATE ---
+let gameState = {
+    gold: 0,
+    currentLevel: 0,
+    isGameOver: false
+};
+
+const TILE_SIZE = 64;
+const GRAVITY = 0.6;
+
+// --- ASSET MANAGER (Här laddar man in bilder för försäljning) ---
+const assets = {
+    player: null, // Kan ersättas med: new Image().src = "hero.png"
+    coin: "#ffd700",
+    enemy: "#ff4d4d"
+};
+
+// --- LEVEL DESIGN (Matris-system för snabb produktion) ---
+const levels = [
+    [
+        "________________________________________",
+        "_____C________________C_________________",
+        "____###_______E______###_______C_____G__",
+        "########################################"
+    ],
+    [
+        "________________________________________",
+        "_________C______C_______C_______________",
+        "____#___###____###_____###_____E_____G__",
+        "########################################"
+    ]
+];
+
+class Entity {
+    constructor(x, y, w, h, color) {
+        this.x = x; this.y = y; this.w = w; this.h = h; this.color = color;
+        this.velX = 0; this.velY = 0;
+    }
+}
+
+class Player extends Entity {
+    constructor() {
+        super(100, 100, 40, 60, "#00f2ff");
+        this.jumpCount = 0;
+    }
+    update(keys, platforms) {
+        if (keys["KeyD"] || keys["ArrowRight"]) this.velX += 0.8;
+        if (keys["KeyA"] || keys["ArrowLeft"]) this.velX -= 0.8;
+        
+        this.velX *= 0.85;
+        this.velY += GRAVITY;
+        this.x += this.velX;
+        this.y += this.velY;
+
+        platforms.forEach(p => {
+            if (this.x < p.x + p.w && this.x + this.w > p.x &&
+                this.y < p.y + p.h && this.y + this.h > p.y) {
+                if (this.velY > 0) {
+                    this.jumpCount = 0;
+                    this.velY = 0;
+                    this.y = p.y - this.h;
+                }
+            }
+        });
+    }
+}
+
+// --- ENGINE VARS ---
+let player = new Player();
+let platforms = [];
+let coins = [];
+let enemies = [];
+let goal = null;
+let cameraX = 0;
+const keys = {};
+
+function initLevel(index) {
+    platforms = []; coins = []; enemies = [];
+    const layout = levels[index];
+    layout.forEach((row, y) => {
+        for (let x = 0; x < row.length; x++) {
+            let px = x * TILE_SIZE;
+            let py = window.innerHeight - (layout.length - y) * TILE_SIZE;
+            if (row[x] === "#") platforms.push({x: px, y: py, w: TILE_SIZE, h: TILE_SIZE});
+            if (row[x] === "C") coins.push({x: px + 20, y: py + 20, w: 20, h: 20, collected: false});
+            if (row[x] === "E") enemies.push({x: px, y: py + 24, w: 40, h: 40, startX: px, velX: 2});
+            if (row[x] === "G") goal = {x: px, y: py, w: TILE_SIZE, h: TILE_SIZE};
+        }
+    });
+    player.resetPos();
+}
+
+Player.prototype.resetPos = function() {
+    this.x = 100; this.y = 100; this.velX = 0; this.velY = 0;
+};
+
+window.onkeydown = (e) => {
+    keys[e.code] = true;
+    if ((e.code === "KeyW" || e.code === "Space" || e.code === "ArrowUp") && player.jumpCount < 2) {
+        player.velY = -14;
+        player.jumpCount++;
+    }
+};
+window.onkeyup = (e) => keys[e.code] = false;
+
+function gameLoop() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    cameraX += (player.x - canvas.width/3 - cameraX) * 0.1;
+    player.update(keys, platforms);
+
+    ctx.save();
+    ctx.translate(-cameraX, 0);
+
+    // Rita Plattformar
+    ctx.fillStyle = "#222";
+    platforms.forEach(p => {
+        ctx.fillRect(p.x, p.y, p.w, p.h);
+        ctx.strokeStyle = "#444";
+        ctx.strokeRect(p.x, p.y, p.w, p.h);
+    });
+
+    // Mynt-logik (Här tjänar spelaren valuta!)
+    coins.forEach(c => {
+        if (!c.collected) {
+            ctx.fillStyle = assets.coin;
+            ctx.beginPath();
+            ctx.arc(c.x + 10 - 0, c.y + 10, 12, 0, Math.PI*2);
+            ctx.fill();
+            
+            if (player.x < c.x + c.w && player.x + player.w > c.x && player.y < c.y + c.h && player.y + player.h > c.y) {
+                c.collected = true;
+                gameState.gold += 10;
+                document.getElementById("goldCount").innerText = gameState.gold;
+            }
+        }
+    });
+
+    // Mål
+    ctx.fillStyle = "#39ff14";
+    ctx.fillRect(goal.x, goal.y, goal.w, goal.h);
+    if (player.x < goal.x + goal.w && player.x + player.w > goal.x && player.y < goal.y + goal.h) {
+        gameState.currentLevel++;
+        if (gameState.currentLevel < levels.length) initLevel(gameState.currentLevel);
+        else alert("Demo klar! Köp fulla versionen?");
+    }
+
+    // Fiender
+    enemies.forEach(en => {
+        en.x += en.velX;
+        if (en.x > en.startX + 200 || en.x < en.startX) en.velX *= -1;
+        ctx.fillStyle = assets.enemy;
+        ctx.fillRect(en.x, en.y, en.w, en.h);
+        if (player.x < en.x + en.w && player.x + player.w > en.x && player.y < en.y + en.h && player.y + player.h > en.y) {
+            player.resetPos();
+        }
+    });
+
+    // Rita Spelare
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+
+    ctx.restore();
+    requestAnimationFrame(gameLoop);
+}
+
+initLevel(0);
+gameLoop();
+</script>
+</body>
+</html>
