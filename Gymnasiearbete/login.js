@@ -18,11 +18,15 @@ async function registerUser(username, email, password) {
         }
     });
 
+        // Visar felmeddelande i logen och en alert
+
     if (authError) {
         console.error("Fel vid registrering:", authError.message);
         alert('Registrering misslyckades: ' + authError.message);
         return;
     }
+
+
 
     const user = data.user;
     if (!user) {
@@ -31,7 +35,6 @@ async function registerUser(username, email, password) {
     }
 
     // Skapar profilraden
-    // OBS: Se till att tabellen 'users' har en kolumn 'id' som är UUID
     const { error: dbError } = await supabase
         .from('users')
         .insert([
@@ -41,6 +44,8 @@ async function registerUser(username, email, password) {
                 email: email
             }
         ]);
+
+        
 
     if (dbError) {
         console.error("Kunde inte spara i tabellen 'users':", dbError.message);
@@ -70,7 +75,7 @@ async function loginUser(email, password) {
 
     if (data.user) {
         alert('Inloggad!');
-        window.location.href = 'klocka.html';
+        window.location.href = 'hub.html';
     }
 }
 
