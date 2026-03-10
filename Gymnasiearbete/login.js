@@ -18,7 +18,7 @@ async function registerUser(username, email, password) {
         }
     });
 
-        // Visar felmeddelande i logen och en alert
+    // Visar felmeddelande i logen och en alert
 
     if (authError) {
         console.error("Fel vid registrering:", authError.message);
@@ -27,7 +27,7 @@ async function registerUser(username, email, password) {
     }
 
 
-
+    // Om inte använderen skapas så kommer detta meddelandet upp
     const user = data.user;
     if (!user) {
         alert('Något gick fel, ingen användare skapades.');
@@ -45,8 +45,8 @@ async function registerUser(username, email, password) {
             }
         ]);
 
-        
 
+    // Om koden inte skulle funka ser jag det i consolen.
     if (dbError) {
         console.error("Kunde inte spara i tabellen 'users':", dbError.message);
         alert('Konto skapat, men profilinfo kunde inte sparas. Kolla dina RLS-inställningar i Supabase!');
@@ -56,9 +56,8 @@ async function registerUser(username, email, password) {
     }
 }
 
-// =====================================================
-// INLOGGNING
-// =====================================================
+
+    // Inloggning
 async function loginUser(email, password) {
     console.log("Försöker logga in:", email);
 
@@ -67,21 +66,22 @@ async function loginUser(email, password) {
         password: password
     });
 
+
+    // Fel meddelande i consolen och sen en alert om man inte kunde logga in
     if (error) {
         console.error("Inloggningsfel:", error.message);
         alert('Inloggning misslyckades: ' + error.message);
         return;
     }
-
+    // Alert om man logga in så skickas man till hub sidan
     if (data.user) {
         alert('Inloggad!');
         window.location.href = 'hub.html';
     }
 }
 
-// =====================================================
-// EVENT LISTENERS
-// =====================================================
+
+// Event listener
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm');
     const loginForm = document.getElementById('loginForm');

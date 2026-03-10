@@ -96,8 +96,8 @@ Teknisk approach: Central layout och använda gradiant
         <div class="about-section">
             <h2 class="section-title">Mitt namn är Jonathan</h2>
             <div class="about-grid">
-                <div class="profile-img">
-                    <div class="img-placeholder">❤️</div>
+            
+                    
                 </div>
                 <div class="about-text">
                     <h2>Hej och välkomen</h2>
@@ -110,10 +110,11 @@ Teknisk approach: Central layout och använda gradiant
                 <h3>Interaktiv färgväxlare</h3>
                 <p>Klicka på knapparna nedan för att ändra temafärgen på sidan!</p>
                 <div class="color-buttens">
-                    <button class="color-btn color-blue">Blå</button>
-                    <button class="color-btn color-green">Green</button>
-                    <button class="color-btn color-purple">Lila</button>
-                    <button class="color-btn color-orange">Orange</button>
+                    <button class="color-btn color-blue-red">Blå röd</button>
+                    <button class="color-btn color-green">Grön</button>
+                    <button class="color-btn color-blue">Lila</button>
+                    <button class="color-btn color-red">Orange</button>
+                    <button class="color-btn color-white">Vit</button>
                 </div>
             </div>
         </div>
@@ -201,7 +202,7 @@ Teknisk approach: Central layout och använda gradiant
 
         </div>
     </main>
-<!-- Jag ska föra en footer som visar på vad som finns på sidan, innehållet som text har inte någon betydelse. Jag ändrade lite med att footern ska ha 2 rader istället för 1, detta gjorde det möjligt att lägga till några bilder också. Jag har anpassat hela sidan så att den har samma färg, så att det ser ut som en röd tråd genom sidan. -->
+<!-- Jag ska göra en footer som visar på vad som finns på sidan, innehållet som text har inte någon betydelse. Jag ändrade lite med att footern ska ha 2 rader istället för 1, detta gjorde det möjligt att lägga till några bilder också. Jag har anpassat hela sidan så att den har samma färg, så att det ser ut som en röd tråd genom sidan. -->
 <footer>
     <div class="footer-container">
         <div class="footer-grid">
@@ -225,11 +226,27 @@ Teknisk approach: Central layout och använda gradiant
             </div>
 
             <div class="footer-section">
-                <h3>Detta är bilder på mina söner</h3>
-                <img src="Image (5).jpg" alt="">
-                <img src="Image (4).jpg" alt="">
-                <img src="Image (6).jpg" alt="">
-                <p>Lucas, Filip och Anhar har varit väldigt duktiga</p>
+                <h3>Detta är landmärken i Sverige</h3>
+                <img src="https://www.publicdomainpictures.net/pictures/250000/velka/sweden-flag.jpg" alt="">
+                <!-- Innehåll: Sveriges flagga
+                Källa: https://www.publicdomainpictures.net/pictures/250000/velka/sweden-flag.jpg
+                Licens: CC0 Public Domain
+                Innebär: Fri att använda, inget krav på att ange källa
+                Använder jag den? Ja -->
+
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9PJm8oD_N0VzLqpI5evO8DYSgWmfgPnQqIg&s" alt="">
+                <!-- Innehåll: Skånes flagga
+                Källa: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9PJm8oD_N0VzLqpI5evO8DYSgWmfgPnQqIg&s
+                Licens: CC0 Public Domain
+                Innebär: Fri att använda, inget krav på att ange källa
+                Använder jag den? Ja -->
+
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkrfiCB6BumnQkrKfS99TmfChIx6GSfU5iYw&s" alt="">
+                <!-- Innehåll: Staffanstorps kommunvapen
+                Källa: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9PJm8oD_N0VzLqpI5evO8DYSgWmfgPnQqIg&s
+                Licens: CC0 Public Domain
+                Innebär: Fri att använda, inget krav på att ange källa
+                Använder jag den? Ja -->
             </div>
         
             <div class="footer-section">
@@ -264,6 +281,25 @@ Teknisk approach: Central layout och använda gradiant
                 console.log("like")
             }
         }
+
+        const buttons = document.querySelectorAll('.color-btn');
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Vi hämtar "background" (som täcker både färg och gradients)
+        const style = getComputedStyle(button).backgroundImage;
+        const color = getComputedStyle(button).backgroundColor;
+
+        if (style !== 'none') {
+            // Om knappen har en gradient (image)
+            document.body.style.backgroundImage = style;
+        } else {
+            // Om knappen bara har en vanlig färg
+            document.body.style.backgroundImage = 'none'; // Rensa eventuell gammal gradient
+            document.body.style.backgroundColor = color;
+        }
+    });
+});
     </script>
     
 </body>
