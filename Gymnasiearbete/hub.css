@@ -53,7 +53,6 @@
 .kort-bild {
     width: 100%;
     height: 300px;
-    background-image: linear-gradient(135deg, #9b59b6, #8e44ad);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,27 +90,21 @@
     color: navy;
 }
 
-.kort-titel a:hover {
-    color: green;
-}
-
+/* Fixar texten så att den inte ser bajs ut när man klickar på den */
 .kort-titel a, .kort-titel a:hover, .kort-titel a:visited {
     text-decoration: none !important;
-    color: navy;
 }
-
+/* Fuxar titeln */
 .kort-titel p {
-    text-decoration: none;
-    margin: 0;
+text-decoration: none;
+margin: 0;
 }
-
+/* GÖr en liten inzoming på bilderna */
 .projekt-kort1:hover .kort-bild img, .projekt-kort2:hover .kort-bild img {
-    transform: scale(1.1);
+transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
-    .kort-grid {
-        grid-template-columns: 1fr;
-    }
-    
-}
+.kort-grid {
+grid-template-columns: 1fr;
+}}
