@@ -26,3 +26,16 @@ nav {
 .nav-menu a {
     text-decoration: none;
 }
+
+.time-line-content-second {
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.time-line-content-second > img {
+    outline: 3px solid red;
+}
+.time-line-content-second > p {
+    outline: 3px solid green;
+}
