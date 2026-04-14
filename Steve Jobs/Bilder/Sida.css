@@ -27,15 +27,27 @@ nav {
     text-decoration: none;
 }
 
-.time-line-content-second {
+.time-line-content-third {
     background-color: blue;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
+    div {
+        text-align: center;
+
+        p {
+            max-width: 300px;
+            margin: 0 auto;
+
+        }
+    }
+
 }
 
-.time-line-content-second > img {
+
+.time-line-content-third > img {
     outline: 3px solid red;
 }
-.time-line-content-second > p {
+.time-line-content-third > p {
     outline: 3px solid green;
 }
