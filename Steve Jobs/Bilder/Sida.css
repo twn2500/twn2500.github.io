@@ -27,6 +27,27 @@ nav {
     text-decoration: none;
 }
 
+.time-line-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: dense;
+    background-color: red;
+
+    div {
+        background-image: linear-gradient(45deg, white, black);
+    }
+
+    div:nth-of-type(4n) {
+       grid-column: 1;
+    }
+    div:nth-of-type(4n -1) {
+       grid-column: 2;
+    }
+
+}
+
+
+
 .time-line-content-third {
     background-color: blue;
     display: grid;
