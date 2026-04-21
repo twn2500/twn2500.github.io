@@ -31,13 +31,14 @@ nav {
 .hero-content {
     text-align: center;
     background-color: red;
+    margin-bottom: 50px;
 }
 
 .time-line-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: dense;
-    background-color: green;
+    
     text-align: center;
     align-items: center;
     margin-top: 50px;
@@ -47,6 +48,10 @@ nav {
     }
     div:nth-of-type(4n -1) {
        grid-column: 2;
+    }
+
+    div {
+        padding: 50px;
     }
 
 }
