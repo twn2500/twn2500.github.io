@@ -2,6 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    div h2 {
+        margin-bottom: 20px;
+    }
 }
 
 img {
@@ -24,14 +27,28 @@ nav {
     flex: 1 1 0;
 }
 
+.titel {
+    margin-left: 100px;
+}
+
 .nav-menu a {
     text-decoration: none;
+    margin-right: 100px;
 }
 
 .hero-content {
     text-align: center;
-    background-color: red;
     margin-bottom: 50px;
+
+    div img {
+        max-width: 50%;
+    }
+
+    div p {
+        width: 1000px;
+        margin: 0 auto; 
+        width: clamp(250px, 50%, 60ch);
+    }
 }
 
 .time-line-content {
@@ -53,33 +70,26 @@ nav {
     div {
         padding: 50px;
     }
-
 }
 
 .time-line-content-second {
-    background-color: orange;
     display: grid;
     grid-template-columns: auto minmax(60ch, 250px);
     text-align: center;
 
     img {
-        max-width: 100%;
-    }
-
-    > * {
-       background-image: linear-gradient(45deg, white, black); 
+        max-width: 75%;
     }
 
     div {
         display: flex;
         justify-content: center;
         align-items: center;
-
-       
     }
 
-     .p-rogan {
+    .p-rogan {
         padding:50px;
+        flex-direction: column;
     }
 
 }
@@ -87,10 +97,10 @@ nav {
 
 
 .time-line-content-third {
-    background: blue;
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column: 1 / -1;
+    margin-top: 200px;
 
     div {
         text-align: center;
@@ -98,12 +108,16 @@ nav {
         p {
             max-width: 300px;
             margin: 0 auto;
-
+            margin-top: 50px;
+            
         }
     }
 
 }
 
+.text1, .text2, .text3 {
+    flex-direction: column;
+}
 
 .time-line-content-third > img {
     outline: 3px solid red;
@@ -117,4 +131,38 @@ nav {
             grid-template-columns: auto auto;
 
     }
+}
+
+footer {
+    margin: 0;
+    background-color: white;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .titel {
+        margin-left: 0;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .nav-menu a {
+        margin-right: 0;
+    }
+
 }
