@@ -4,11 +4,20 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+body {
+    background-color: #0b0b38;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
 .titel {
     text-align: center;
-    color: navy;
+    color: white;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    margin-bottom: 100px;
 }
 
 .kort-grid {
@@ -19,30 +28,19 @@
     padding: 20px;
 }
 
-.projekt-kort1 {
+.projekt-kort1, .projekt-kort2 {
+    width: 100%;
     max-width: 400px;
     flex: 1 1 400px;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
     overflow: hidden;
-    box-shadow: 0 10px rgba(0, 0, 0, 0.2);
     transition: all 0.5s ease;
     display: flex;
     flex-direction: column;
     position: relative;
-}
-
-.projekt-kort2 {
-    max-width: 400px;
-    flex: 1 1 400px;
-    background: white;
-    border-radius: 50px;
-    overflow: hidden;
-    box-shadow: 0 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.5s ease;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    margin-bottom: 100px;
 }
 
 .projekt-kort1:hover, .projekt-kort2:hover {
@@ -82,12 +80,12 @@
 }
 
 .kort.titel a {
-    color: navy;
+    color: white;
     text-decoration: none;
 }
 
 .kort-titel a:visited {
-    color: navy;
+    color: white;
 }
 
 /* Fixar texten så att den inte ser bajs ut när man klickar på den */
@@ -103,8 +101,3 @@ margin: 0;
 .projekt-kort1:hover .kort-bild img, .projekt-kort2:hover .kort-bild img {
 transform: scale(1.1);
 }
-
-@media (max-width: 768px) {
-.kort-grid {
-grid-template-columns: 1fr;
-}}

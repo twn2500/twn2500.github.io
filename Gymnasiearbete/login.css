@@ -7,16 +7,21 @@
 body {
     margin: 0;
     display: flex;
-    justify-content: left;
-    margin-left: 200px;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    align-content: center;
     height: 100vh;
     background-image: url('Bilder/p3psdeaq6vx81.png');
     background-size: cover;
+    padding: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .register-glass-box, .login-glass-box {
-    width: 300px;
+    width: 100%;
+    max-width: 320px;
     height: 300px;
     position: relative;
     background: rgba(0, 0, 0, 0.639);
@@ -81,4 +86,12 @@ button:hover {
     background: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     outline: 2px solid #fff;
+}
+
+
+@media (min-width: 768px) {
+    body {
+        justify-content: flex-start;
+        padding-left: 100px; 
+    }
 }
