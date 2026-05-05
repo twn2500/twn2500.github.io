@@ -22,3 +22,7 @@ const randomIntegery = getRandomIntegery(20, 500)
 
 circle.style.top = randomIntegerx + "px"
 circle.style.left = randomIntegery + "px"
+
+addEventListener ("click", function() {
+    alert (" Du har klickat");
+})
