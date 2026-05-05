@@ -1,3 +1,15 @@
+body {
+    background-color: #0b0b38;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    gap: 200px;
+}
+
 .kläder {
     display: flex;
     justify-content: space-around; 
@@ -12,7 +24,7 @@
 }
 
 .tröja-box, .jeans-box, .skor-box {
-    border: 2px solid #333;
+    border: 2px solid white;
     border-radius: 8px;
     padding: 10px;
     width: 200px;  
@@ -20,13 +32,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .slumpa-btn {
     display: flex;
     justify-content: center;
-    padding: 200px;
+    padding: 40px;
+}
+
+/* Jag använder # för att det är ett id jag jobbar med*/
+#slumpa-knapp {
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+#slumpa-knapp:hover {
+    transform: translateY( -5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 img {
