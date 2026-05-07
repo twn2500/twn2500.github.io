@@ -1,8 +1,7 @@
-console.log("Skriptet är laddat!");
 
-const trojor = ["Bilder/troja1.png", "Bilder/troja2.jpg"];
-const jeans = ["Bilder/530205s6.webp"];
-const skor = ["Bilder/daze.webp", "Bilder/jack.jpg" ];
+const trojor = ["Bilder/troja1.png", "Bilder/troja2.jpg", "Bilder/Tröja1.webp"];
+const jeans = ["Bilder/530205s6.webp", "Bilder/jeans1.webp", "Bilder/jeans2.webp"];
+const skor = ["Bilder/daze.webp", "Bilder/jack.jpg", "Bilder/skor1.avif" ];
 
 const knapp = document.getElementById("slumpa-knapp");
 
