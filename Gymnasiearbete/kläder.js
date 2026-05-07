@@ -1,23 +1,22 @@
-
-const trojor = ["Bilder/troja1.png", "Bilder/troja2.jpg", "Bilder/Tröja1.webp"];
+const trojor = ["Bilder/troja1.png", "Bilder/troja2.jpg", "Bilder/tröja1.webp"];
 const jeans = ["Bilder/530205s6.webp", "Bilder/jeans1.webp", "Bilder/jeans2.webp"];
 const skor = ["Bilder/daze.webp", "Bilder/jack.jpg", "Bilder/skor1.avif" ];
 
 const knapp = document.getElementById("slumpa-knapp");
 
-
-if (knapp) {
-    knapp.addEventListener("click", function() {
-        console.log("Knappen klickades!");
-
-        const rTroja = trojor[Math.floor(Math.random() * trojor.length)];
-        const rJeans = jeans[Math.floor(Math.random() * jeans.length)];
-        const rSkor = skor[Math.floor(Math.random() * skor.length)];
-
-        document.getElementById("img-troja").src = rTroja;
-        document.getElementById("img-jeans").src = rJeans;
-        document.getElementById("img-skor").src = rSkor;
-    });
-} else {
-    console.error("Kunde inte hitta knappen med id 'slumpa-knapp'");
+function väljSlumpad (lista) {
+    const siffra = Math.random() * lista.length
+    const heltal = Math.floor(siffra);
+    return lista[heltal];
 }
+
+knapp.addEventListener("click", () => {
+
+    const valdTroja = väljSlumpad(trojor)
+    const valdJeans = väljSlumpad(jeans)
+    const valdSkor = väljSlumpad(skor)
+
+    document.getElementById("img-troja").src = valdTroja;
+    document.getElementById("img-jeans").src = valdJeans;
+    document.getElementById("img-skor").src = valdSkor;
+})
