@@ -92,6 +92,6 @@ button:hover {
 @media (min-width: 768px) {
     body {
         justify-content: flex-start;
-        padding-left: 100px; 
+        justify-content: center;
     }
 }
